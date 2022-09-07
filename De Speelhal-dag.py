@@ -1,20 +1,12 @@
-a = 3
-b = 7.45
-c = 45
-d = 5
-e = 0.37
-f = 3.33
-
-print('De tickets kosten bij elkaar',a*b)
-print('De VIP-VR_GAMESEAT kost', c/d*e)
-print('De dag kostte in totaal', a*b + (c/d*e))
-
-txt = 'Dit geweldige dagje-uit met {}'
-txt2 = 'mensen in de Speelhal met {}'
-txt3 = 'minuten VR kost je maar {} euro'
-
-print(txt.format(a))
-print(txt2.format(c))
-print(txt3.format(f))
-
+print('Met hoeveel mensen bent u?')
+a = (input())
+print('Wat kosten de tickets?')
+b = (input())
+print('Hoeveel tickets heeft u nodig?')
+c = (input())
+print('Hoeveel kost de VIP-VR-Gameseat per rit?')
+d = (input())
+print('Hoeveel keer wilt u in de VIP-VR-Gameseat?')
+e = (input())
+print('De dag kostte in totaal', (float(a)*float(b)) + (float(c)/float(d)*float(e)))
 
