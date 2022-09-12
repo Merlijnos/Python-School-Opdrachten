@@ -7,6 +7,6 @@ if a > b:
 elif a < b:
     print("a is kleiner dan b:" + str(b))
 else:
-    print('a en b zijn evengroot')
+    print('a en b zijn gelijk')
 max = a
 min = b
