@@ -1,6 +1,3 @@
-from wsgiref.validate import InputWrapper
-
-
 print('Is de kaas geel?, typ 1 voor ja en 2 voor nee')
 kaas = int(input())
 nee = int(2)
