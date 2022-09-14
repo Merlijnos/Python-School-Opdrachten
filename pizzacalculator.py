@@ -3,11 +3,22 @@ print('Een pizza medium kost u: €7')
 print('Een pizza large kost u: €10')
 # Hierboven staan de Prijzen van de pizzas.
 print('hoeveel small pizzas wilt u?')
-small = float(input())
+try:
+    small = float(input())
+except:
+    print('U moet een getal invoeren!')
+
 print('hoeveel medium pizzas wilt u?')
-medium = float(input())
+try:
+    medium = float(input())
+except:
+    print('U moet een getal invoeren!')
+
 print('hoeveel large pizzas wilt u?')
-large = float(input())
+try:
+    large = float(input())
+except:
+    print('U moet een getal invoeren!')
 # Hierboven staan de vragen met een invulvak.
 smallprijs = float(5)
 mediumprijs = float(7)
