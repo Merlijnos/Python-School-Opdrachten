@@ -9,7 +9,6 @@ for i in range(20):
     while pogingen < 10 :
         pogingen += 1
         print('Probeer het nummer te raden!')
-        print(Getal)
         invoer = int(input())
         if invoer == Getal:
             pogingen = 10
