@@ -12,6 +12,8 @@ while opnieuw == True:
         print(boodschappenlijst)
     else:
         print('-[ BOODSCHAPPENLIJST ]-')
+        print('')
         print(boodschappenlijst)
         opnieuw = False
-        print('___________________')
+        print('')
+        print('-----------------------')
