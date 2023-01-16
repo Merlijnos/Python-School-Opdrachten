@@ -1,0 +1,9 @@
+Het programma vraagt hoeveel mensen er meedoen aan de lootjes verdeler.
+Als het aantal mensen minder is dan 3, kan het spel niet doorgaan
+Het programma vraagt dan om de namen opnieuw in te vullen.
+Als er wel meer dan 3 mensen zijn, vraagt het programma naar de namen van deze mensen.
+De namen worden in een lijst opgeslagen.
+Het programma kiest dan de lootjes in een random volgorde uit.
+Niemand heeft zijn eigen naam.
+Daarna print het programma wie elkaars lootje had.
+Het programma vraagt of de gebruiker nog een keer wil spelen.
