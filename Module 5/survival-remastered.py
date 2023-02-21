@@ -261,6 +261,4 @@ def survival():
                 repeat = True
             else:
                 repeat = False
-
-
 survival()
