@@ -121,7 +121,6 @@ def survival():
                                         repeat = True
                                     else:
                                         repeat = False
-
                         else:
                             input(
                                 'Je gaat dwars door de bossen heen, hopend dat je een onderdak voor de nacht vind')
@@ -242,7 +241,6 @@ def survival():
                     repeat = True
                 else:
                     repeat = False
-
         else:
             input('Je gaat naar buiten zonder spullen')
             input('Er zit iets achter je aan, je weet niet wat het is')
