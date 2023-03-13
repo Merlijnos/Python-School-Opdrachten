@@ -1,8 +1,11 @@
 import time
+import math
 from termcolor import colored
 from data import JOURNEY_IN_DAYS
 from data import COST_FOOD_HUMAN_COPPER_PER_DAY
 from data import COST_FOOD_HORSE_COPPER_PER_DAY
+from data import COST_TENT_GOLD_PER_WEEK
+from data import COST_HORSE_SILVER_PER_DAY
 
 ##################### M04.D02.O2 #####################
 
@@ -31,28 +34,27 @@ def getJourneyFoodCostsInGold(people:int(0.4), horses:int(0.3)) -> float:
 ##################### M04.D02.O5 #####################
 
 def getFromListByKeyIs(list:list, key:str, value:any) -> list:
-    pass
+    return [item for item in list if item[key] == value]
 
 def getAdventuringPeople(people:list) -> list:
-    pass
+    return getFromListByKeyIs(people, 'adventuring', True)
 
 def getShareWithFriends(friends:list) -> int:
-    pass
+    return getFromListByKeyIs(friends, 'shareWith', True)
 
 def getAdventuringFriends(friends:list) -> list:
-    pass
+    return getFromListByKeyIs(friends, 'adventuring', True)
 
 ##################### M04.D02.O6 #####################
 
 def getNumberOfHorsesNeeded(people:int) -> int:
-    pass
+    return math.ceil(people / 2)
 
 def getNumberOfTentsNeeded(people:int) -> int:
-    pass
+    return math.ceil(people / 3)
 
 def getTotalRentalCost(horses:int, tents:int) -> float:
-    pass
-
+    return (silver2gold((horses * COST_HORSE_SILVER_PER_DAY) * (JOURNEY_IN_DAYS))) + ((tents * COST_TENT_GOLD_PER_WEEK ) * math.ceil( JOURNEY_IN_DAYS / 7))
 ##################### M04.D02.O7 #####################
 
 def getItemsAsText(items:list) -> str:
@@ -60,7 +62,6 @@ def getItemsAsText(items:list) -> str:
 
 def getItemsValueInGold(items:list) -> float:
     pass
-
 ##################### M04.D02.O8 #####################
 
 def getCashInGoldFromPeople(people:list) -> float:
