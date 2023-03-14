@@ -6,7 +6,6 @@ from data import COST_FOOD_HUMAN_COPPER_PER_DAY
 from data import COST_FOOD_HORSE_COPPER_PER_DAY
 from data import COST_TENT_GOLD_PER_WEEK
 from data import COST_HORSE_SILVER_PER_DAY
-
 ##################### M04.D02.O2 #####################
 
 def copper2silver(amount:int(10)) -> float: # 10 copper = 1 silver
@@ -58,10 +57,21 @@ def getTotalRentalCost(horses:int, tents:int) -> float:
 ##################### M04.D02.O7 #####################
 
 def getItemsAsText(items:list) -> str:
-    pass
+     return ', '.join([f"{item['amount']}{item['unit']} {item['name']}" for item in items])
 
 def getItemsValueInGold(items:list) -> float:
-    pass
+    total_gold = 0
+    for item in items:
+        if item['price']['type'] == 'gold':
+            total_gold += item['amount'] * item['price']['amount']
+        elif item['price']['type'] == 'silver':
+            total_gold += silver2gold(item['amount'] * item['price']['amount'])
+        elif item['price']['type'] == 'copper':
+            total_gold += copper2gold(item['amount'] * item['price']['amount'])
+        elif item['price']['type'] == 'platinum':
+            total_gold += platinum2gold(item['amount'] * item['price']['amount'])
+    return total_gold
+    
 ##################### M04.D02.O8 #####################
 
 def getCashInGoldFromPeople(people:list) -> float:
