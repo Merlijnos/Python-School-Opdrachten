@@ -8,20 +8,20 @@ from data import COST_TENT_GOLD_PER_WEEK
 from data import COST_HORSE_SILVER_PER_DAY
 ##################### M04.D02.O2 #####################
 
-def copper2silver(amount:int(10)) -> float: # 10 copper = 1 silver
-    return amount / 10
+def copper2silver(amount:int) -> float: # 10 copper = 1 silver
+    return round(amount / 10, 2)
 
-def silver2gold(amount:int(5)) -> float: # 5 silver = 1 gold
-    return amount / 5
+def silver2gold(amount:int) -> float: # 5 silver = 1 gold
+    return round(amount / 5, 2)
 
-def copper2gold(amount:int(50)) -> float: # 50 copper = 1 gold
-    return amount / 50
+def copper2gold(amount:int) -> float: # 50 copper = 1 gold
+    return round(amount / 50, 2)
 
-def platinum2gold(amount:int(25)) -> float: # 1 platinum = 25 gold
-    return amount * 25
+def platinum2gold(amount:int) -> float: # 1 platinum = 25 gold
+    return round(amount * 25, 2)
 
 def getPersonCashInGold(personCash:dict) -> float:
-    return personCash['platinum'] * platinum2gold(1) + personCash['gold'] + personCash['silver'] * silver2gold(1) + personCash['copper'] * copper2gold(1)
+    return platinum2gold(personCash['platinum']) + personCash['gold'] + silver2gold(personCash['silver']) + copper2gold(personCash['copper'])
 
 ##################### M04.D02.O4 #####################
 
@@ -33,7 +33,11 @@ def getJourneyFoodCostsInGold(people:int(0.4), horses:int(0.3)) -> float:
 ##################### M04.D02.O5 #####################
 
 def getFromListByKeyIs(list:list, key:str, value:any) -> list:
-    return [item for item in list if item[key] == value]
+    persons= []
+    for person in list:
+        if person[key] == value:
+            persons.append(person)
+    return persons
 
 def getAdventuringPeople(people:list) -> list:
     return getFromListByKeyIs(people, 'adventuring', True)
@@ -42,8 +46,9 @@ def getShareWithFriends(friends:list) -> int:
     return getFromListByKeyIs(friends, 'shareWith', True)
 
 def getAdventuringFriends(friends:list) -> list:
-    return getFromListByKeyIs(friends, 'adventuring', True)
-
+    sharewith = getShareWithFriends(friends)
+    return getAdventuringPeople(sharewith)
+    
 ##################### M04.D02.O6 #####################
 
 def getNumberOfHorsesNeeded(people:int) -> int:
@@ -54,6 +59,7 @@ def getNumberOfTentsNeeded(people:int) -> int:
 
 def getTotalRentalCost(horses:int, tents:int) -> float:
     return (silver2gold((horses * COST_HORSE_SILVER_PER_DAY) * (JOURNEY_IN_DAYS))) + ((tents * COST_TENT_GOLD_PER_WEEK ) * math.ceil( JOURNEY_IN_DAYS / 7))
+
 ##################### M04.D02.O7 #####################
 
 def getItemsAsText(items:list) -> str:
@@ -75,7 +81,10 @@ def getItemsValueInGold(items:list) -> float:
 ##################### M04.D02.O8 #####################
 
 def getCashInGoldFromPeople(people:list) -> float:
-    pass
+    total_gold = 0
+    for person in people:
+        total_gold += getPersonCashInGold(person['cash'])
+    return total_gold
 
 ##################### M04.D02.O9 #####################
 
