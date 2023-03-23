@@ -89,13 +89,33 @@ def getCashInGoldFromPeople(people:list) -> float:
 ##################### M04.D02.O9 #####################
 
 def getInterestingInvestors(investors:list) -> list:
-    pass
+    InterestingInvestors = []
+    for index in range(0,len(investors)):
+        if investors[index]['profitReturn'] <= 10:
+            InterestingInvestors.append(investors[index])
+    return InterestingInvestors
 
 def getAdventuringInvestors(investors:list) -> list:
-    pass
+    investorslessthantenpercent=getInterestingInvestors(investors)
+    investorsfollowing = []
+    for investor in investorslessthantenpercent:
+        if investor['adventuring']==True:
+            investorsfollowing.append(investor)
+    return investorsfollowing
 
 def getTotalInvestorsCosts(investors:list, gear:list) -> float:
-    pass
+    totaalbedrag=0
+    totalinvestors=len(getAdventuringInvestors(investors))
+    gearprice=getItemsValueInGold(gear)*totalinvestors
+    tentcost=totalinvestors*COST_TENT_GOLD_PER_WEEK*2
+    foodcost=totalinvestors*COST_FOOD_HUMAN_COPPER_PER_DAY*JOURNEY_IN_DAYS
+    foodcostpaard=totalinvestors*COST_FOOD_HORSE_COPPER_PER_DAY*JOURNEY_IN_DAYS
+    horsecost=totalinvestors*COST_HORSE_SILVER_PER_DAY*JOURNEY_IN_DAYS
+    foodcostingold=copper2gold(foodcost)
+    foodcosthorseingold=copper2gold(foodcostpaard)
+    horsecostingold=silver2gold(horsecost)
+    totaalbedrag+=tentcost+foodcostingold+foodcosthorseingold+horsecostingold+gearprice
+    return round(totaalbedrag,2)
 
 ##################### M04.D02.O10 #####################
 
