@@ -6,6 +6,8 @@ from data import COST_FOOD_HUMAN_COPPER_PER_DAY
 from data import COST_FOOD_HORSE_COPPER_PER_DAY
 from data import COST_TENT_GOLD_PER_WEEK
 from data import COST_HORSE_SILVER_PER_DAY
+from data import COST_INN_HUMAN_SILVER_PER_NIGHT
+from data import COST_INN_HORSE_COPPER_PER_NIGHT
 ##################### M04.D02.O2 #####################
 
 def copper2silver(amount:int) -> float: # 10 copper = 1 silver
@@ -120,10 +122,16 @@ def getTotalInvestorsCosts(investors:list, gear:list) -> float:
 ##################### M04.D02.O10 #####################
 
 def getMaxAmountOfNightsInInn(leftoverGold:float, people:int, horses:int) -> int:
-    pass
-
+    people_cost = silver2gold(COST_INN_HUMAN_SILVER_PER_NIGHT) * people
+    horses_cost  = copper2gold(COST_INN_HORSE_COPPER_PER_NIGHT) * horses
+    totalcost = people_cost + horses_cost
+    return math.floor(leftoverGold / totalcost)
+    
 def getJourneyInnCostsInGold(nightsInInn:int, people:int, horses:int) -> float:
-    pass
+    people_cost = silver2gold(COST_INN_HUMAN_SILVER_PER_NIGHT) * people
+    horses_cost  = copper2gold(COST_INN_HORSE_COPPER_PER_NIGHT) * horses
+    totalcost = round(nightsInInn * (people_cost + horses_cost) , 2)
+    return totalcost
 
 ##################### M04.D02.O12 #####################
 
