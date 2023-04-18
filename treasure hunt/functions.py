@@ -180,6 +180,7 @@ def getEarnigs(profitGold: float, mainCharacter: dict, friends: list, investors:
             'end': round(eindgoud, 2)
         })
     return earnings
+
 ##################### view functions #####################
 def print_colorvars(txt:str='{}', vars:list=[], color:str='yellow') -> None:
     vars = map(lambda string, color=color: colored(str(string), color, attrs=['bold']) ,vars)
