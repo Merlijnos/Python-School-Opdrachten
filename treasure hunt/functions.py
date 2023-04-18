@@ -151,9 +151,35 @@ def getAdventurerCut(profitGold:float, investorsCuts:list, fellowship:int) -> fl
 
 ##################### M04.D02.O13 #####################
 
-def getEarnigs(profitGold:float, mainCharacter:dict, friends:list, investors:list) -> list:
-    pass
+def getEarnigs(profitGold: float, mainCharacter: dict, friends: list, investors: list) -> list:
+    people = [mainCharacter] + friends + investors
+    earnings = []
 
+    adventuringFriends = getAdventuringFriends(friends)
+    interestingInvestors = getInterestingInvestors(investors)
+    adventuringInvestors = getAdventuringInvestors(interestingInvestors)
+    investorsCuts = getInvestorsCuts(profitGold, interestingInvestors)
+    goldshare = getAdventurerCut(profitGold, investorsCuts, len(adventuringFriends) + len(adventuringInvestors) + 1)
+
+    for person in people:
+        BeginGoud = getPersonCashInGold(person['cash'])
+        eindgoud = BeginGoud
+
+        if person == mainCharacter:
+            eindgoud += goldshare + round(len(adventuringFriends) * 10, 2)
+        elif person in adventuringInvestors:
+            eindgoud += goldshare
+        elif person in adventuringFriends:
+            eindgoud += goldshare - 10
+        if person in interestingInvestors:
+            eindgoud += round(profitGold * person['profitReturn'] / 100, 2)
+
+        earnings.append({
+            'name': person['name'],
+            'start': round(BeginGoud, 2),
+            'end': round(eindgoud, 2)
+        })
+    return earnings
 ##################### view functions #####################
 def print_colorvars(txt:str='{}', vars:list=[], color:str='yellow') -> None:
     vars = map(lambda string, color=color: colored(str(string), color, attrs=['bold']) ,vars)
