@@ -11,6 +11,4 @@ def bestelling_opnemen():
         if not vraag_meer_bestellen():
             print("Bedankt en tot ziens!")
             break
-
-if __name__ == "__main__":
-    bestelling_opnemen()
+bestelling_opnemen()
