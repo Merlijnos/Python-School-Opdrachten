@@ -7,7 +7,11 @@ def vraag_aantal_bolletjes():
         if aantal_bolletjes.isdigit():
             aantal_bolletjes = int(aantal_bolletjes)
             if aantal_bolletjes >= 1 and aantal_bolletjes <= 3:
-                return aantal_bolletjes, "hoorntje"
+                bakje_of_hoorntje = input("Wilt u deze bolletjes in een hoorntje of een bakje? ")
+                while bakje_of_hoorntje.lower() not in ["hoorntje", "bakje"]:
+                    print("Sorry, dat snap ik niet...")
+                    bakje_of_hoorntje = input("Wilt u deze bolletjes in een hoorntje of een bakje? ")
+                return aantal_bolletjes, bakje_of_hoorntje
             elif aantal_bolletjes >= 4 and aantal_bolletjes <= 8:
                 return aantal_bolletjes, "bakje"
             elif aantal_bolletjes > 8:
