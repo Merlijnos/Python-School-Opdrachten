@@ -36,3 +36,32 @@ def vraag_meer_bestellen():
             return False
         else:
             print("Sorry, dat snap ik niet...")
+
+def bonnetje(bestellingen):
+    print("-----------[" + "Papi Gelato" + "]-----------")
+    totaal_prijs = 0
+    totaal_bolletjes = 0
+    totaal_bakjes = 0
+    totaal_hoorntjes = 0
+
+    prijs_bolletje = 1.10
+    prijs_bakje = 0.75
+    prijs_hoorntje = 1.25
+
+    for aantal_bolletjes, bakje_of_hoorntje in bestellingen:
+        prijs = prijs_bolletje * aantal_bolletjes
+        if bakje_of_hoorntje == "bakje":
+            prijs += prijs_bakje
+            totaal_bakjes += 1
+        elif bakje_of_hoorntje == "hoorntje":
+            prijs += prijs_hoorntje
+            totaal_hoorntjes += 1
+
+        totaal_bolletjes += aantal_bolletjes
+        totaal_prijs += prijs
+
+    print(f"Totaal bolletjes:    {totaal_bolletjes} X €1.10 = €{totaal_bolletjes * prijs_bolletje:.2f}")
+    print(f"Totaal bakjes:       {totaal_bakjes} X €0.75 = €{totaal_bakjes * prijs_bakje:.2f}")
+    print(f"Totaal hoorntjes:    {totaal_hoorntjes} X €1.25 = €{totaal_hoorntjes * prijs_hoorntje:.2f}")
+    print("-------------------------------------")
+    print(f"Totaal =             €{totaal_prijs:.2f}")
