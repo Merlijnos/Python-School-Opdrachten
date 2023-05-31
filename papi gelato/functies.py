@@ -1,5 +1,5 @@
 def welkom():
-    print("Welkom bij Papi Gelato! Hieronder ziet u onze beschikbare smaken:")
+    print("Welkom bij Papi Gelato!")
 
 def vraag_aantal_bolletjes():
     while True:
@@ -21,6 +21,19 @@ def vraag_aantal_bolletjes():
         else:
             print("Sorry, dat snap ik niet...")
 
+def vraag_smaak(aantal_bolletjes):
+    smaken = {"A": "Aardbei", "C": "Chocolade", "M": "Munt", "V": "Vanille"}
+    bestellingen = []
+    for i in range(1, aantal_bolletjes+1):
+        while True:
+            smaak = input(f"Welke smaak wilt u voor bolletje nummer {i}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
+            if smaak.upper() in smaken:
+                bestellingen.append(smaken[smaak.upper()])
+                break
+            else:
+                print("Sorry, dat snap ik niet...")
+    return bestellingen
+
 def geef_ijs(aantal_bolletjes, bakje_of_hoorntje):
     if bakje_of_hoorntje == "hoorntje":
         print(f"Hier is uw hoorntje met {aantal_bolletjes} bolletje(s).")
@@ -37,31 +50,27 @@ def vraag_meer_bestellen():
         else:
             print("Sorry, dat snap ik niet...")
 
-def bonnetje(bestellingen):
-    print("-----------[" + "Papi Gelato" + "]-----------")
-    totaal_prijs = 0
-    totaal_bolletjes = 0
-    totaal_bakjes = 0
-    totaal_hoorntjes = 0
-
-    prijs_bolletje = 1.10
-    prijs_bakje = 0.75
-    prijs_hoorntje = 1.25
-
-    for aantal_bolletjes, bakje_of_hoorntje in bestellingen:
-        prijs = prijs_bolletje * aantal_bolletjes
+def print_receipt(bestellingen):
+    total_price = 0
+    total_bolletjes = 0
+    total_bakjes = 0
+    smaken_dict = {}
+    print("Papi Gelato")
+    print("------------------------------")
+    for i, bestelling in enumerate(bestellingen):
+        aantal_bolletjes, bakje_of_hoorntje, smaken = bestelling
+        price = aantal_bolletjes * 1.25
+        total_price += price
+        total_bolletjes += aantal_bolletjes
         if bakje_of_hoorntje == "bakje":
-            prijs += prijs_bakje
-            totaal_bakjes += 1
-        elif bakje_of_hoorntje == "hoorntje":
-            prijs += prijs_hoorntje
-            totaal_hoorntjes += 1
-
-        totaal_bolletjes += aantal_bolletjes
-        totaal_prijs += prijs
-
-    print(f"Totaal bolletjes:    {totaal_bolletjes} X €1.10 = €{totaal_bolletjes * prijs_bolletje:.2f}")
-    print(f"Totaal bakjes:       {totaal_bakjes} X €0.75 = €{totaal_bakjes * prijs_bakje:.2f}")
-    print(f"Totaal hoorntjes:    {totaal_hoorntjes} X €1.25 = €{totaal_hoorntjes * prijs_hoorntje:.2f}")
-    print("-------------------------------------")
-    print(f"Totaal =             €{totaal_prijs:.2f}")
+            total_bakjes += 1
+        for smaak in smaken:
+            if smaak in smaken_dict:
+                smaken_dict[smaak] += 1
+            else:
+                smaken_dict[smaak] = 1
+    print(f"Aantal bolletjes: {total_bolletjes}\nBakjes: {total_bakjes}\nHoorntjes: {len(bestellingen) - total_bakjes}")
+    print("Smaak(en):")
+    for smaak, aantal_bolletjes in smaken_dict.items():
+        print(f"- {aantal_bolletjes}x {smaak}")
+    print(f"Totaal: {total_price:.2f} euro")
