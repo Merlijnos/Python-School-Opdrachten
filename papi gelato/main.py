@@ -1,19 +1,9 @@
-from functies import welkom, vraag_aantal_bolletjes, vraag_smaak, geef_ijs, vraag_meer_bestellen, print_receipt
+import functies
 
-def bestelling_opnemen():
-    welkom()
+def main():
+    functies.print_welcome_message()
+    bestellingen = functies.vraag_bestellingen()
+    functies.vraag_meer_bestellingen(bestellingen)
 
-    bestellingen = []
-
-    while True:
-        aantal_bolletjes, bakje_of_hoorntje = vraag_aantal_bolletjes()
-        if aantal_bolletjes is not None and bakje_of_hoorntje is not None:
-            smaken = vraag_smaak(aantal_bolletjes)
-            geef_ijs(aantal_bolletjes, bakje_of_hoorntje)
-            bestellingen.append((aantal_bolletjes, bakje_of_hoorntje, smaken))
-
-        if not vraag_meer_bestellen():
-            print_receipt(bestellingen)
-            break
-
-bestelling_opnemen()
+if __name__ == "__main__":
+    main()
