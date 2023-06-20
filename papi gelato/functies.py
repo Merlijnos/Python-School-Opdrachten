@@ -1,21 +1,58 @@
-def print_welcome_message():
-    print("Welkom bij Papi Gelato!")
-
-def vraag_bestellingen():
-    aantal_bolletjes = int(input("Hoeveel bolletjes wilt u? "))
-    bakje_of_hoorntje = vraag_bakje_of_hoorntje(aantal_bolletjes)
-    smaken = vraag_smaak(aantal_bolletjes)
-    return [(aantal_bolletjes, bakje_of_hoorntje, smaken)]
-
-def vraag_meer_bestellingen(bestellingen):
+def vraag_aantal_bolletjes():
     while True:
-        meer_bestellingen = input("Wilt u nog meer bestellingen plaatsen? (ja/nee): ")
-        if meer_bestellingen.lower() == "ja":
-            bestellingen += vraag_bestellingen()
+        aantal_bolletjes = input("Hoeveel bolletjes wilt u? ")
+        if not aantal_bolletjes.isnumeric():
+            print("Sorry dat is geen geldig aantal, probeer het opnieuw...")
+        elif int(aantal_bolletjes) > 8:
+            print("Sorry, we hebben maar plaats voor 8 bolletjes op een hoorntje of in een bakje.")
+        elif int(aantal_bolletjes) < 1:
+            print("Sorry, u moet minimaal 1 bolletje bestellen.")
         else:
-            print_receipt(bestellingen)
-            break
-    return bestellingen
+            return int(aantal_bolletjes)
+
+def vraag_bakje_of_hoorntje():
+    while True:
+        bakje_of_hoorntje = input("Wilt u deze bestellen in een hoorntje of een bakje? ")
+        if bakje_of_hoorntje.lower() == "hoorntje":
+            return "hoorntje"
+        elif bakje_of_hoorntje.lower() == "bakje":
+            return "bakje"
+        else:
+            print("Sorry dat snap ik niet...")
+
+def vraag_smaak(aantal_bolletjes):
+    smaken = []
+    for i in range(aantal_bolletjes):
+        smaak = input(f"Welke smaak wilt u voor bolletje nummer {i+1}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
+        if smaak.lower() == "aardbei" or smaak == "a":
+            smaken.append("Aardbei")
+        elif smaak.lower() == "chocolade" or smaak == "c":
+            smaken.append("Chocolade")
+        elif smaak.lower() == "munt" or smaak == "m":
+            smaken.append("Munt")
+        elif smaak.lower() == "vanille" or smaak == "v":
+            smaken.append("Vanille")
+        else:
+            print("Sorry dat snap ik niet...")
+            smaken.append(vraag_smaak(1)[0])
+    return smaken
+
+def vraag_topping(bakje_of_hoorntje):
+    while True:
+        topping = input("Wat voor topping wilt u: A) Geen, B) Slagroom, C) Sprinkels of D) Caramel Saus? ")
+        if topping.lower() == "a":
+            return ("Geen", 0)
+        elif topping.lower() == "b":
+            return ("Slagroom", 0.5)
+        elif topping.lower() == "c":
+            return ("Sprinkels", 0.3)
+        elif topping.lower() == "d":
+            if bakje_of_hoorntje == "hoorntje":
+                return ("Caramel Saus", 0.6)
+            elif bakje_of_hoorntje == "bakje":
+                return ("Caramel Saus", 0.9)
+        else:
+            print("Sorry dat snap ik niet...")
 
 def print_receipt(bestellingen):
     print("\n------------------['Papi Gelato']------------------")
@@ -24,8 +61,9 @@ def print_receipt(bestellingen):
     total_hoorntjes = 0
     total_bakjes = 0
     flavor_counts = {"Aardbei": 0, "Chocolade": 0, "Munt": 0, "Vanille": 0}
+    topping_counts = {"Geen": 0, "Slagroom": 0, "Sprinkels": 0, "Caramel Saus": 0}
     for bestelling in bestellingen:
-        aantal_bolletjes, bakje_of_hoorntje, smaken = bestelling
+        aantal_bolletjes, bakje_of_hoorntje, smaken, topping = bestelling
         total_scoops += aantal_bolletjes
         if bakje_of_hoorntje == "hoorntje":
             total_hoorntjes += 1
@@ -35,6 +73,14 @@ def print_receipt(bestellingen):
             total += aantal_bolletjes * 1.10 + 0.75
         for smaak in smaken:
             flavor_counts[smaak.capitalize()] += 1
+        topping_counts[topping[0]] += 1
+        if topping[0] != "Geen":
+            if topping[0] == "Sprinkels":
+                print(f"Topping           = €{topping[1] * total_scoops:>5.2f}")
+                total += topping[1] * total_scoops
+            else:
+                print(f"{topping[0]:<10}    = €{topping[1]:>5.2f}")
+                total += topping[1]
     for smaak, count in flavor_counts.items():
         if count > 0:
             print(f"B.{smaak:<10} {count} x 1.10    = €{count * 1.10:>5.2f}")
@@ -43,35 +89,4 @@ def print_receipt(bestellingen):
     if total_bakjes > 0:
         print(f"Bakje(s):    {total_bakjes} x 0.75    = €{total_bakjes * 0.75:>5.2f}")
     print('                           ------ +')
-    print(f"Totaal:                    €{total:>5.2f}.")
-
-def vraag_bakje_of_hoorntje(aantal_bolletjes):
-    while True:
-        if 4 <= aantal_bolletjes <= 8:
-            print("Dan krijgt u van mij een bakje met", aantal_bolletjes, "bolletjes.")
-            bakje_of_hoorntje = "bakje"
-        else:
-            bakje_of_hoorntje = input("Wilt u deze bolletjes in een hoorntje of een bakje? ")
-        if bakje_of_hoorntje.lower() not in ["hoorntje", "bakje"]:
-            print("Sorry, dat snap ik niet...")
-            continue
-        return bakje_of_hoorntje.lower()
-
-def vraag_smaak(aantal_bolletjes):
-    smaken = []
-    for i in range(1, aantal_bolletjes+1):
-        while True:
-            smaak = input(f"Welke smaak wilt u voor bolletje nummer {i}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
-            if smaak.lower() not in ["a", "c", "m", "v"]:
-                print("Sorry, dat snap ik niet...")
-                continue
-            if smaak.lower() == "a":
-                smaken.append("Aardbei")
-            elif smaak.lower() == "c":
-                smaken.append("Chocolade")
-            elif smaak.lower() == "m":
-                smaken.append("Munt")
-            elif smaak.lower() == "v":
-                smaken.append("Vanille")
-            break
-    return smaken
+    print(f"Totaal:                   €{total:>5.2f}.")
