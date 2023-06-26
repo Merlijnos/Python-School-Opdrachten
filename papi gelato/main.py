@@ -6,7 +6,7 @@ def main():
         nieuwe_bestelling = input("Wilt u een nieuwe bestelling starten? (ja/nee) ")
         if nieuwe_bestelling.lower() == "ja":
             aantal_bolletjes = vraag_aantal_bolletjes()
-            bakje_of_hoorntje = vraag_bakje_of_hoorntje()
+            bakje_of_hoorntje = vraag_bakje_of_hoorntje(aantal_bolletjes)
             smaken = vraag_smaak(aantal_bolletjes)
             topping = vraag_topping(bakje_of_hoorntje)
             bestellingen.append((aantal_bolletjes, bakje_of_hoorntje, smaken, topping))

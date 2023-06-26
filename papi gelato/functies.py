@@ -10,31 +10,46 @@ def vraag_aantal_bolletjes():
         else:
             return int(aantal_bolletjes)
 
-def vraag_bakje_of_hoorntje():
-    while True:
-        bakje_of_hoorntje = input("Wilt u deze bestellen in een hoorntje of een bakje? ")
-        if bakje_of_hoorntje.lower() == "hoorntje":
-            return "hoorntje"
-        elif bakje_of_hoorntje.lower() == "bakje":
-            return "bakje"
-        else:
-            print("Sorry dat snap ik niet...")
+def vraag_bakje_of_hoorntje(aantal_bolletjes=None):
+    if aantal_bolletjes is None:
+        aantal_bolletjes = vraag_aantal_bolletjes()
+    if aantal_bolletjes > 8:
+        print("Sorry, u kunt maximaal 8 bolletjes bestellen.")
+        return vraag_bakje_of_hoorntje()
+    elif aantal_bolletjes > 4:
+        print("Dan krijgt u van mij een bakje met", aantal_bolletjes, "bolletjes.")
+        return "bakje"
+    else:
+        while True:
+            bakje_of_hoorntje = input("Wilt u deze bestellen in een hoorntje of een bakje? ")
+            if bakje_of_hoorntje.lower() == "hoorntje":
+                return "hoorntje"
+            elif bakje_of_hoorntje.lower() == "bakje":
+                return "bakje"
+            else:
+                print("Sorry dat snap ik niet...")
 
 def vraag_smaak(aantal_bolletjes):
     smaken = []
     for i in range(aantal_bolletjes):
-        smaak = input(f"Welke smaak wilt u voor bolletje nummer {i+1}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
-        if smaak.lower() == "aardbei" or smaak == "a":
-            smaken.append("Aardbei")
-        elif smaak.lower() == "chocolade" or smaak == "c":
-            smaken.append("Chocolade")
-        elif smaak.lower() == "munt" or smaak == "m":
-            smaken.append("Munt")
-        elif smaak.lower() == "vanille" or smaak == "v":
-            smaken.append("Vanille")
-        else:
-            print("Sorry dat snap ik niet...")
-            smaken.append(vraag_smaak(1)[0])
+        while True:
+            smaak = input(f"Welke smaak wilt u voor bolletje nummer {i+1}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
+            if smaak.lower() == "aardbei" or smaak == "a":
+                smaken.append("Aardbei")
+                break
+            elif smaak.lower() == "chocolade" or smaak == "c":
+                smaken.append("Chocolade")
+                break
+            elif smaak.lower() == "munt" or smaak == "m":
+                smaken.append("Munt")
+                break
+            elif smaak.lower() == "vanille" or smaak == "v":
+                smaken.append("Vanille")
+                break
+            elif smaak == "":
+                print("U heeft niets ingevoerd. Probeer het opnieuw.")
+            else:
+                print("Sorry dat snap ik niet...")
     return smaken
 
 def vraag_topping(bakje_of_hoorntje):
@@ -51,6 +66,8 @@ def vraag_topping(bakje_of_hoorntje):
                 return ("Caramel Saus", 0.6)
             elif bakje_of_hoorntje == "bakje":
                 return ("Caramel Saus", 0.9)
+        elif topping == "":
+            print("U heeft niets ingevoerd. Probeer het opnieuw.")
         else:
             print("Sorry dat snap ik niet...")
 
