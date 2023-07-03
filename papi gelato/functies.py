@@ -38,14 +38,12 @@ def vraag_smaak(aantal_bolletjes):
     smaken = []
     for i in range(aantal_bolletjes):
         while True:
-            smaak = input(f"Welke smaak wilt u voor nummer {i+1}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
-            if smaak.lower() in ("a", "c", "m", "v"):
+            smaak = input(f"Welke smaak wilt u voor nummer {i+1}? A) Aardbei, C) Chocolade of V) Vanille? ")
+            if smaak.lower() in ("a", "c", "v"):
                 if smaak.lower() == "a":
                     smaken.append("Aardbei")
                 elif smaak.lower() == "c":
                     smaken.append("Chocolade")
-                elif smaak.lower() == "m":
-                    smaken.append("Munt")
                 elif smaak.lower() == "v":
                     smaken.append("Vanille")
                 break
