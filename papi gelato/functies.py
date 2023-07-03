@@ -38,7 +38,7 @@ def vraag_smaak(aantal_bolletjes):
     smaken = []
     for i in range(aantal_bolletjes):
         while True:
-            smaak = input(f"Welke smaak wilt u voor bolletje nummer {i+1}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
+            smaak = input(f"Welke smaak wilt u voor nummer {i+1}? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ")
             if smaak.lower() in ("a", "c", "m", "v"):
                 if smaak.lower() == "a":
                     smaken.append("Aardbei")
@@ -78,7 +78,7 @@ def print_receipt(bestellingen):
     total_liters = 0
     total_hoorntjes = 0
     total_bakjes = 0
-    flavor_counts = {"Aardbei": 0, "Chocolade": 0, "Munt": 0, "Vanille": 0}
+    flavor_counts = {}
     topping_counts = {"Geen": 0, "Slagroom": 0, "Sprinkels": 0, "Caramel Saus": 0}
     for bestelling in bestellingen:
         if len(bestelling) == 4:
@@ -91,33 +91,47 @@ def print_receipt(bestellingen):
                 total_bakjes += 1
                 total += aantal_bolletjes * 1.10 + 0.75
             for smaak in smaken:
-                flavor_counts[smaak.capitalize()] += 1
-            topping_counts[topping[0]] += 1
-            if topping[0] != "Geen":
-                if topping[0] == "Sprinkels":
-                    print(f"Topping           = €{topping[1] * total_scoops:>5.2f}")
-                    total += topping[1] * total_scoops
-                else:
-                    print(f"{topping[0]:<10}    = €{topping[1]:>5.2f}")
-                    total += topping[1]
+                if smaak not in flavor_counts:
+                    flavor_counts[smaak] = 0
+                flavor_counts[smaak] += 1
+            topping_counts[topping[0]] += topping[1] * aantal_bolletjes
         else:
             aantal_liters, smaken = bestelling
             total_liters += aantal_liters
             total += aantal_liters * 9.80
             for smaak in smaken:
-                flavor_counts[smaak.capitalize()] += aantal_liters
+                if smaak not in flavor_counts:
+                    flavor_counts[smaak] = 0
+                flavor_counts[smaak] += aantal_liters
+    for topping, price in topping_counts.items():
+        if price > 0:
+            if topping == "Geen":
+                continue
+            elif topping == "Slagroom":
+                print(f"{topping:<10}    = €0.50")
+                total += price * 0.50
+            elif topping == "Sprinkels":
+                print(f"{topping:<10}    = €{total_scoops * 0.30:>5.2f}")
+                total += total_scoops * 0.30
+            elif topping == "Caramel Saus":
+                if total_hoorntjes > 0:
+                    print(f"{topping:<10}    = €0.60")
+                    total += price * 0.60
+                elif total_bakjes > 0:
+                    print(f"{topping:<10}    = €0.90")
+                    total += price * 0.90
     for smaak, count in flavor_counts.items():
         if count > 0:
             if total_liters > 0:
-                print(f"L.{smaak:<10} {count}L x 9.80   = €{count * 9.80:>5.2f}")
+                print(f"{smaak.capitalize():<10} {count}L x 9.80   = €{count * 9.80:>5.2f}")
             else:
-                print(f"B.{smaak:<10} {count} x 1.10    = €{count * 1.10:>5.2f}")
+                print(f"{smaak.capitalize():<10} {count} x 1.10    = €{count * 1.10:>5.2f}")
     if total_hoorntjes > 0:
         print(f"Hoorntje(s): {total_hoorntjes} x 1.25    = €{total_hoorntjes * 1.25:>5.2f}")
     if total_bakjes > 0:
         print(f"Bakje(s):    {total_bakjes} x 0.75    = €{total_bakjes * 0.75:>5.2f}")
     if total_liters > 0:
-        print(f"Totaal:                   €{total:>5.2f} ({total_liters}L + {total_scoops}x)")
+        print(f"Totaalprijs: €{total:.2f}")
     else:
-        print('                           ------ +')
-        print(f"Totaal:                   €{total:>5.2f}.")
+        print(f"Totaalprijs: €{total:.2f}")
+    print("------------------------")
