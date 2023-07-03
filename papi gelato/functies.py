@@ -5,22 +5,22 @@ def vraag_aantal_bolletjes(is_zakelijk=False):
             try:
                 aantal_liters = int(aantal_liters)
                 if aantal_liters < 1:
-                    print("Sorry, het aantal liters moet een positief getal zijn.")
+                    print("Sorry dat is geen optie die we aanbieden...")
                 else:
                     return aantal_liters
             except ValueError:
-                print("Sorry, dat is geen geldige invoer. Vul a.u.b. een positief getal in.")
+                print("Sorry dat is geen optie die we aanbieden...")
     else:
         while True:
             aantal_bolletjes = input("Hoeveel bolletjes wilt u? ")
             try:
                 aantal_bolletjes = int(aantal_bolletjes)
                 if aantal_bolletjes < 1 or aantal_bolletjes > 8:
-                    print("Sorry, u kunt alleen een waarde tussen 1 en 8 kiezen.")
+                    print("Sorry dat is geen optie die we aanbieden...")
                 else:
                     return aantal_bolletjes
             except ValueError:
-                print("Sorry, dat is geen geldige invoer. Vul a.u.b. een getal tussen 1 en 8 in.")
+                print("Sorry dat is geen optie die we aanbieden...")
 
 def vraag_bakje_of_hoorntje(aantal_bolletjes):
     if aantal_bolletjes > 4:
@@ -32,7 +32,7 @@ def vraag_bakje_of_hoorntje(aantal_bolletjes):
             if bakje_of_hoorntje.lower() in ("hoorntje", "bakje"):
                 return bakje_of_hoorntje.lower()
             else:
-                print("Sorry, dat is geen geldige keuze. Kies 'hoorntje' of 'bakje'.")
+                print("Sorry dat is geen optie die we aanbieden...")
 
 def vraag_smaak(aantal_bolletjes):
     smaken = []
@@ -50,7 +50,7 @@ def vraag_smaak(aantal_bolletjes):
                     smaken.append("Vanille")
                 break
             else:
-                print("Sorry, dat is geen geldige keuze. Kies A, C, M of V.")
+                print("Sorry dat is geen optie die we aanbieden...")
     return smaken
 
 def vraag_topping(bakje_of_hoorntje):
@@ -67,7 +67,7 @@ def vraag_topping(bakje_of_hoorntje):
                 elif topping.lower() == "d":
                     return ("Caramel Saus", 0.90)
             else:
-                print("Sorry, dat is geen geldige keuze. Kies A, B, C of D.")
+                print("Sorry dat is geen optie die we aanbieden...")
     else:
         return ("Geen", 0)
 
@@ -89,7 +89,7 @@ def print_receipt(bestellingen):
                 total += aantal_bolletjes * 1.25
             elif bakje_of_hoorntje == "bakje":
                 total_bakjes += 1
-                total += aantal_bolletjes * 1.10 + 0.75
+                total += aantal_bolletjes * 0.95 + 0.75
             for smaak in smaken:
                 if smaak not in flavor_counts:
                     flavor_counts[smaak] = 0
@@ -125,7 +125,7 @@ def print_receipt(bestellingen):
             if total_liters > 0:
                 print(f"{smaak.capitalize():<10} {count}L x 9.80   = €{count * 9.80:>5.2f}")
             else:
-                print(f"{smaak.capitalize():<10} {count} x 1.10    = €{count * 1.10:>5.2f}")
+                print(f"{smaak.capitalize():<10} {count} x 0.95    = €{count * 0.95:>5.2f}")
     if total_hoorntjes > 0:
         print(f"Hoorntje(s): {total_hoorntjes} x 1.25    = €{total_hoorntjes * 1.25:>5.2f}")
     if total_bakjes > 0:
