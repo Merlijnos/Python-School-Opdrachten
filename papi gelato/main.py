@@ -32,7 +32,7 @@ def main():
 def toon_prijs(aantal_liters, smaken, is_zakelijk=False):
     prijs_per_liter = 9.80 if is_zakelijk else 6.25
     totaal_prijs = aantal_liters * prijs_per_liter
-    btw = totaal_prijs / 1.09 * 0.09 if is_zakelijk else 0
+    btw = totaal_prijs / 1.06 * 0.06 if is_zakelijk else 0
     smaken_dict = {}
     for smaak in smaken:
         if smaak in smaken_dict:
@@ -46,7 +46,7 @@ def toon_prijs(aantal_liters, smaken, is_zakelijk=False):
     print(f"\nAantal liter(s): {aantal_liters}")
     print(f"Totaalprijs: €{totaal_prijs:.2f}")
     if is_zakelijk:
-        print(f"BTW (9%): €{btw:.2f}")
+        print(f"BTW (6%): €{btw:.2f}")
     print("------------------------")
 
 if __name__ == "__main__":
