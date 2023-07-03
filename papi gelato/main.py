@@ -42,7 +42,7 @@ def toon_prijs(aantal_liters, smaken, is_zakelijk=False):
     print("----- Papi Gelato -----")
     print("Bestelling: ")
     for i, (smaak, aantal) in enumerate(smaken_dict.items()):
-        print(f"{aantal} x {smaak}")
+        print(f"L.{smaak} {aantal} x 9.80 = €{aantal * 9.80:.2f}")
     print(f"\nAantal liter(s): {aantal_liters}")
     print(f"Totaalprijs: €{totaal_prijs:.2f}")
     if is_zakelijk:
